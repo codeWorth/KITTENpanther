@@ -1,10 +1,7 @@
 public class ProcessInput {
-	public static void interpretInput(Tasks tasks){
-		Scanner scanner = new Scanner(System.in);
-
+	public static void interpretInput(Tasks tasks, Scanner scanner){
 		String in = scanner.nextLine();
-
-		String inLower = in.toLowerCase();
+		in = in.toLowerCase();
 
 		String[] words = inLower.split(" ");
 
@@ -15,6 +12,7 @@ public class ProcessInput {
 		String firstWord = words[0];
 
 		if (firstWord.equals("add") || firstWord.equals("addtask")){
+
 			System.out.println("Enter the name: ");
 			String theName = scanner.nextLine();
 
@@ -30,12 +28,41 @@ public class ProcessInput {
 			Task newTask = new Task(theName, desc, prio, untilDue);
 
 			tasks.addtask(newTask);
+
 		} else if (firstWord.equals("today")){
+
 			ProcessInput.printTasks(tasks.tasksForToday());
+
 		} else if (firstWord.equals("all") || firstWord.equals("alltasks")){
+
 			ProcessInput.printTasksWithDue(tasks.allTasks());
+
 		}  else if (firstWord.equals("finish")){
-			System.out.println("");
+
+			Task[] tasksInPrintOrder = tasks.allTasks();
+
+			ProcessInput.printTasksWithDue(tasksInPrintOrder);
+			System.out.println("Enter the number of the task you want to remove: ");
+			int number = scanner.nextInt();
+
+			number--;
+			Task toRemove = tasksInPrintOrder[number];
+			int taskToEndIndex = indexOfTask(toRemove);
+			System.out.println(tasks.finishTask(taskToEndIndex));
+
+		} else if (firstWord.equals("desc") || firstWord.equals("description")){
+
+			Task[] tasksInPrintOrder = tasks.allTasks();
+
+			ProcessInput.printTasksWithDue(tasksInPrintOrder);
+			System.out.println("Enter a number of a task, and its description will be shown: ");
+			int number = scanner.nextInt();
+
+			number--;
+			Task toDesc = tasksInPrintOrder[number];
+			int taskToDescIndex = indexOfTask(toDesc);
+			System.out.println(tasks.showTaskDesc(taskToDescIndex));
+
 		}
 	}
 
@@ -67,10 +94,11 @@ public class ProcessInput {
 
 			lePrint = lePrint + i + ". ";
 
-			if (daysUntilDue = 0)
-				system.out.println ("DUE!!!");
-			if (daysUntilDue < 0)
-				system.out.println ("IS LATE!!! EEK! MEOW! EEK! IT'S LATE!!! AGGGGGGHHHHBAHBAH!!!  ITS LATE!!!")
+			if (daysUntilDue == 1){
+				lePrint = lePrint + "!! DUE !! ";
+			} else if (daysUntilDue < 1){
+				lePrint = lePrint + "!! LATE !! ";
+			}
 
 
 			lePrint = lePrint + task.name + "______________";
@@ -80,7 +108,7 @@ public class ProcessInput {
 			i++;
 
 			System.out.println (lePrint);
-			System.out.println (daysUntilDue);
+		}
 	}
 }
   
