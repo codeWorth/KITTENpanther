@@ -22,6 +22,9 @@ Classes:
 			-print the Task's description
 		g. allNextDay (done):
 			-decrement all Task (s) date
+		h. indexOfTask(Task taskToFind) (done):
+			-find the index of the task with the passed in one's name in the tasks arraylist
+			-return -1 if none found
 	2.Task:
 		a. Integer called Priority
 		b. String called Name
