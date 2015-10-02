@@ -32,7 +32,7 @@ public class Tasks{
 	}
 
 	public String finishTask(int taskToEnd){
-		if (taskToEnd < tasks.length() && tasksToEnd >= 0){
+		if (taskToEnd < tasks.length() && tasToEnd >= 0){
 			Task theTask = tasks.get(taskToEnd);
 			if (theTask.daysUntilDue > 1){
 				return "You finished this task "+(theTask.daysUntilDue-1)+" days early";
@@ -40,11 +40,24 @@ public class Tasks{
 				return "You finished this task on time.";
 			} else {
 				return "You finished this task "+(-1 * theTask.daysUntilDue +1)+" days late.";
-			}
+			
 			tasks.remove(taskToEnd);
 		} else {
-			return "Index " + taskToEnd + " out of bounds.";
+			return "Task named " + taskToEnd + " not found.";
 		}
+	}
+
+	public int indexOfTask(Task taskToFind){
+		int currentIndex = 0;
+
+		for (Task checkTask : tasks){
+			if (checkTask.name.equals(taskToFind.name)){
+				return currentIndex;
+			}
+			currentIndex++;
+		}
+
+		return -1;
 	}
 	
 	public Task[] allTasks(){
@@ -88,6 +101,14 @@ public class Tasks{
 					fullOrderedTasks[i] = importanceOrderedTasks[i];
 				}
 			}
+		}
+	}
+
+	public String showTaskDesc(int taskIndex){
+		if (taskIndex >= 0 && taskIndex < tasks.length()){
+			return tasks.get(taskIndex).description;
+		} else {
+			return "Index " + taskIndex + " is out of bounds.";
 		}
 	}
 }
