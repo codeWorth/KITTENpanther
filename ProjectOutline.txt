@@ -18,7 +18,7 @@ Classes:
 		e. finishTask (int taskToEnd) (done):
 			-remove the task from the list
 			-write a message saying  "you finished this task n days late" (if it was late), "you finished this task on time" (if on time), or "you finished this task n days early" (if removed early)
-		f. showTaskDesc (int taskToShow):
+		f. showTaskDesc (int taskToShow) (done):
 			-print the Task's description
 		g. allNextDay (done):
 			-decrement all Task (s) date
@@ -30,14 +30,14 @@ Classes:
 		e. nextDay:
 			-decremement daysUntilDue
 	3. ProcessInput
-		a.takeUserInput (String input):
+		a.takeUserInput (String input) (done):
 			-get a line of text from the user
 			-convert to lower case
 			-do a bunch if statements to find out what thee user typed
-		b. printTasks(Task[] tasksToPrint):
+		b. printTasks(Task[] tasksToPrint (done):
 			-iterate over Task[] printing their names (with numbers)
 			-also write due date
-		c. printTasksWithDue(Task[] tasksToPrint):
+		c. printTasksWithDue(Task[] tasksToPrint) (done):
 			-iterate over Task[] printing names with numbers
 			-also include a "due" tag if due, and a "late" tag if late
 			-also write due date
