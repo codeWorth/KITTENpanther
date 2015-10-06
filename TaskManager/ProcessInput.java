@@ -1,5 +1,5 @@
 public class ProcessInput {
-	public static void interpretInput(Tasks tasks, Scanner scanner){
+	public static boolean interpretInput(Tasks tasks, Scanner scanner){
 		String in = scanner.nextLine();
 		in = in.toLowerCase();
 
@@ -63,7 +63,25 @@ public class ProcessInput {
 			int taskToDescIndex = indexOfTask(toDesc);
 			System.out.println(tasks.showTaskDesc(taskToDescIndex));
 
+		} else if (firstWord.equals("exit")){
+			return false;
+			
+		} else if (firstWord.equals("help")){
+			
+			String[] helpLines = ["add - add a task to the list",
+					      "today - all tasks that are due or overdue",
+					      "all - print all the tasks",
+					      "finish - remove a task from the list",
+					      "desc - write the description of a task",
+					      "exit - stop the program"];
+			
+			for (String line : helpLines){
+				System.out.println(line);
+			}
+			
 		}
+		
+		return true;
 	}
 
 	public static void interpretInput(String in){
