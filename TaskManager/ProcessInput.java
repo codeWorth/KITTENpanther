@@ -1,12 +1,18 @@
+import java.util.Scanner;
+
 public class ProcessInput {
 	public static boolean interpretInput(Tasks tasks, Scanner scanner){
 		String in = scanner.nextLine();
+		while (!(in instanceof String)){
+			System.out.println("Enter a string:");
+			in = scanner.nextLine();
+		}
 		in = in.toLowerCase();
 
-		String[] words = inLower.split(" ");
+		String[] words = in.split(" ");
 
 		if (words.length == 0){
-			return;
+			return true;
 		}
 
 		String firstWord = words[0];
@@ -15,19 +21,35 @@ public class ProcessInput {
 
 			System.out.println("Enter the name: ");
 			String theName = scanner.nextLine();
+			while (!(theName instanceof String)){
+				System.out.println("Enter a string:");
+				theName = scanner.nextLine();
+			}
 
 			System.out.println("Enter a description: ");
 			String desc = scanner.nextLine();
+			while (!(desc instanceof String)){
+				System.out.println("Enter a string:");
+				desc = scanner.nextLine();
+			}
 
 			System.out.println("Enter the number of days until this is due: ");
-			int untilDue = scanner.nextInt();
+			Integer untilDue = scanner.nextInt();
+			while (!(untilDue instanceof Integer)){
+				System.out.println("Enter an integer:");
+				untilDue = scanner.nextInt();
+			}
 
 			System.out.println("Enter the priority: ");
-			int prio = scanner.nextInt();
+			Integer prio = scanner.nextInt();
+			while (!(prio instanceof Integer)){
+				System.out.println("Enter an integer:");
+				prio = scanner.nextInt();
+			}
 
 			Task newTask = new Task(theName, desc, prio, untilDue);
 
-			tasks.addtask(newTask);
+			System.out.println(tasks.addTask(newTask));
 
 		} else if (firstWord.equals("today")){
 
@@ -43,11 +65,15 @@ public class ProcessInput {
 
 			ProcessInput.printTasksWithDue(tasksInPrintOrder);
 			System.out.println("Enter the number of the task you want to remove: ");
-			int number = scanner.nextInt();
+			Integer number = scanner.nextInt();
+			while (!(number instanceof Integer)){
+				System.out.println("Enter an integer:");
+				number = scanner.nextInt();
+			}
 
 			number--;
 			Task toRemove = tasksInPrintOrder[number];
-			int taskToEndIndex = indexOfTask(toRemove);
+			int taskToEndIndex = tasks.indexOfTask(toRemove);
 			System.out.println(tasks.finishTask(taskToEndIndex));
 
 		} else if (firstWord.equals("desc") || firstWord.equals("description")){
@@ -56,11 +82,15 @@ public class ProcessInput {
 
 			ProcessInput.printTasksWithDue(tasksInPrintOrder);
 			System.out.println("Enter a number of a task, and its description will be shown: ");
-			int number = scanner.nextInt();
+			Integer number = scanner.nextInt();
+			while (!(number instanceof Integer)){
+				System.out.println("Enter an integer:");
+				number = scanner.nextInt();
+			}
 
 			number--;
 			Task toDesc = tasksInPrintOrder[number];
-			int taskToDescIndex = indexOfTask(toDesc);
+			int taskToDescIndex = tasks.indexOfTask(toDesc);
 			System.out.println(tasks.showTaskDesc(taskToDescIndex));
 
 		} else if (firstWord.equals("exit")){
@@ -68,18 +98,22 @@ public class ProcessInput {
 			
 		} else if (firstWord.equals("help")){
 			
-			String[] helpLines = ["add - add a task to the list",
+			String[] helpLines = {"add - add a task to the list",
 					      "today - all tasks that are due or overdue",
 					      "all - print all the tasks",
 					      "finish - remove a task from the list",
 					      "desc - write the description of a task",
-					      "exit - stop the program"];
-			
+					      "exit - stop the program",
+					  	  "next - go to the next day"};
+
 			for (String line : helpLines){
 				System.out.println(line);
 			}
 			
-		}
+		} else if (firstWord.equals("next")){
+			tasks.allNextDay();
+			System.out.println("It's the next day.");
+		}	
 		
 		return true;
 	}
@@ -112,9 +146,9 @@ public class ProcessInput {
 
 			lePrint = lePrint + i + ". ";
 
-			if (daysUntilDue == 1){
+			if (task.daysUntilDue == 1){
 				lePrint = lePrint + "!! DUE !! ";
-			} else if (daysUntilDue < 1){
+			} else if (task.daysUntilDue < 1){
 				lePrint = lePrint + "!! LATE !! ";
 			}
 

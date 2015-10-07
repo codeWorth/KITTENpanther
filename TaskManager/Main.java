@@ -6,7 +6,7 @@ public class Main{
         Scanner in = new Scanner(System.in);
         
         boolean shouldCont = true;
-        while (shouldCOnt){
+        while (shouldCont){
             shouldCont = ProcessInput.interpretInput(taskList, in);
         }
     }
