@@ -6,3 +6,4 @@ We make stuff. Actually codeWorth makes stuff. Cause LEGIONOF7 DOESN'T DO ANYTHI
 
 Projects made:
 1. Task Manager: allows a user to input and remove tasks that give an alert (!! DUE !!) when due or late. 
+2. In Progress: Bouncy, a bunch of circles that bounce around the screen
