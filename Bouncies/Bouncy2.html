@@ -135,6 +135,99 @@
 
 		//Math functions
 
+		function bounceCirlce(i1, i2, x1, y1, x2, y2){
+
+			var vx1 = circleVX[i1];
+			var vy1 = circleVY[i1];
+
+			var vx2 = circleVX[i2];
+			var vy2 = circleVY[i2];
+
+			var betweenCenteredX = x2 - x1; //center line between at 0, 0
+			var betweenCenteredY = y2 - y1;
+
+			var lenBetween = 2*circleR //the length between is double the radius of the circles because the circles are touching edges
+
+			var dotVelBetween = (betweenCenteredX * vx1 + betweenCenteredY * vy1) / lenBetween; //find the dot product of circle 1's velocity on line between divided by magnitude of line between
+
+			var ratio = dotVelBetween / lenBetween; //ratio of length of transfer velocity to length of line between
+
+			var transferX1 = betweenCenteredX * ratio; //speed in x that should be transfered
+			var transferY1 = betweenCenteredY * ratio; //speed in y that should be transfered
+
+
+
+			betweenCenteredX = x1 - x2; //recenter line between at 0, 0
+			betweenCenteredY = y1 - y2;
+
+			//instead of doing above calculation, simply add a * -1 in front of the betweenCenetered variables, it has the same effect
+
+			dotVelBetween = (-betweenCenteredX * vx2 - betweenCenteredY * vy2) / lenBetween; //find the dot product of circle 2's velocity on line between divided by magnitude of line between
+
+			ratio = dotVelBetween / lenBetween; //recompute ratio
+
+			var transferX2 = -betweenCenteredX * ratio; //same as before
+			var transferY2 = -bewteenCenteredY * ratio;
+
+			vx1 -= transferX1; //remove transferX1 from vx1 (speed goes from circle 1 to circle 2)
+			vx1 += transferX2; //add it to vx2 (goes to circle 2)
+
+			vy1 -= transferY1; //same deal with the y
+			vy1 += transferY2;
+
+
+			vx2 -= transferX2; //remove transferX2 from vx2 (speed goes frm circle)
+			vx2 += transferX1; //add it to vx1 (goes to circle 1)
+
+			vy2 -= transferY2; //same deal with the y
+			vy2 += transferY1;
+
+			var vr1Pad = Math.sqrt(vx1^2 + vy1^2); 
+			var vr2Pad = Math.sqrt(vx2^2 + vy2^2);
+
+			vr1Pad += 2*r;
+			vr2Pad += 2*r;
+
+			circleVX[i1] = vx1;
+			circleVY[i1] = vy1;
+			circleVRPad[i1] = vr1Pad;
+
+			circleVX[i2] = vx2;
+			circleVY[i2] = vy2;
+			circleVRPad[i2] = vr2Pad;
+
+		}
+
+		function bounceBetweenFrames(i1, i2){
+
+		}
+
+		function checkForBounces(){
+			var circleXLen = circleX.length;
+			var canvHIn = canvH - circleR;
+			var canvWIn = canvW - circleR;
+
+			var thisX;
+			var thisY;
+
+			var t;
+			for (var i = 0; i < circleXLen; i++){
+				thisX = circleX[i];
+				thisY = circleY[i];
+
+				if (thisX < circleR || thisX > canvWIn){
+					circleVX[i] *= -1;
+				}
+				if (thisY < circleR || thisY > canvHIn){
+					circleVY[i] *= -1;
+				}
+
+				for (var j = i + 1; j < circleXLen; j++){
+					if (Math.abs())
+				}
+			}
+		}
+
 		</script>
 	</body>
 </html>
