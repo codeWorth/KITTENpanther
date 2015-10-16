@@ -239,7 +239,7 @@
 					var m2 = circleVY[i2]/circleVX[i2];
 
 					var k = circleVX[i2]/circleVX[i1]; //ratio of vx's, used with t
-					var c = 4r^2 - x2^2 - y2^2;
+					var c = 4r*r - x2*x2 - y2*y2;
 					var d = 1 - 2*m2*k;
 
 					if (d == 0){
@@ -253,8 +253,14 @@
 
 					var t = -y2/d + Math.sqrt(determinant);
 
-					if (t < 0 || t > circleVX[i1]){
-						//break out
+					if (0 < circleVY[i1]){
+						if (t < 0 || t > circleVY[i1]){
+							//break out
+						}
+					} else {
+						if (t < circleVY[i1] || t > 0){
+							//break out
+						}
 					}
 					shouldBounce = true;
 				}
@@ -269,7 +275,37 @@
 				x3^2 + ((1)t - m1*t)^2 = 4*r^2
 				x3^2 + ((1-m1)*t)^2 = 4*r^2
 				x3^2 + (1-m1)^2 * t^2 = 4*r^2
+				
+				m1^2 * t^2 + (1-m1)^2 * t^2 = 4*r^2
+				t^2 (m1^2 + (1-m1)^2) = 4*r^2
 				*/
+				
+				var m1 = circleVY[i1]/circleVX[i1];
+
+				var k = circleVX[i2]/circleVX[i1]; //ratio of vx's, used with t
+				var a = m1*m1 + (1-m1)*(1-m1);
+				var c = 4*r*r;
+				
+				if (a == 0){
+					//break out
+				}
+				var determanint = c/a;
+				
+				if (determanint < 0){
+					//break out
+				}
+				
+				t = Math.sqrt(determanint);
+				
+				if (0 < circleVX[i1]){
+					if (t < 0 || t > circleVX[i1]){
+						//break out
+					}
+				} else {
+					if (t < circleVX[i1] || t > 0){
+						//break out
+					}
+				}
 
 			} else {
 
@@ -281,7 +317,7 @@
 
 				var a = (k-1)^2 + f^2; //there is no explanation
 				var b = f*y2 + x2 * (k - 1);
-				var c = 4r^2 - x2^2 - y2^2;
+				var c = 4r*r - x2*x2 - y2*y2;
 
 			}
 
