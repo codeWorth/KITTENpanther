@@ -200,10 +200,12 @@
 			circleVX[i1] = vx1;
 			circleVY[i1] = vy1;
 			circleVRPad[i1] = vr1Pad;
+			movePercent(i1, percent, x1, y1);
 
 			circleVX[i2] = vx2;
 			circleVY[i2] = vy2;
 			circleVRPad[i2] = vr2Pad;
+			movePercent(i2, percent, x2, y2);
 
 		}
 
@@ -218,7 +220,7 @@
 
 				if (circleVX[i2] == 0){
 					if (x2 <= 2 * circleR){
-						return 0;
+						bounceCircle(i1, i2, x3, y3, x4, y4, 0);
 					}
 				} else {
 					/*
@@ -260,13 +262,16 @@
 
 					if (0 < circleVY[i1]){
 						if (t < 0 || t > circleVY[i1]){
-							return -1;
+							return;
 						}
 					} else {
 						if (t < circleVY[i1] || t > 0){
-							return -1;
+							return;
 						}
 					}
+
+					bounceCircle(i1, i2, x3, y3, x4, y4, t/circleVY[i1]);
+					return;
 				}
 
 			} else if (circleVX[i2] == 0){
@@ -291,12 +296,12 @@
 				var c = 4*r*r;
 				
 				if (a == 0){
-					//break out
+					return;
 				}
 				var determanint = c/a;
 				
 				if (determanint < 0){
-					//break out
+					return;
 				}
 				
 				var t = Math.sqrt(determanint);
@@ -314,13 +319,13 @@
 				var c = 4r*r - x2*x2 - y2*y2;
 
 				if (a == 0){
-					return -1;
+					return;
 				}
 
 				var determanint = c/a + b*b/(a*a);
 
 				if (determanint < 0){
-					return -1;
+					return;
 				}
 				
 				var t = -b/a + Math.sqrt(determanint);
@@ -330,11 +335,11 @@
 
 			if (0 < circleVX[i1]){
 				if (t < 0 || t > circleVX[i1]){
-					return -1;
+					return;
 				}
 			} else {
 				if (t < circleVX[i1] || t > 0){
-					return -1;
+					return;
 				}
 			}
 
@@ -350,7 +355,8 @@
 			y3 += circleY[i1];
 			y4 += circleY[i1];
 
-			bounceCircle(i1, i2, x3, y3, x4, y4);
+			bounceCircle(i1, i2, x3, y3, x4, y4, t/circleVX[i1]);
+			return;
 		}
 
 		function checkForBounces(){
@@ -361,7 +367,6 @@
 			var thisX;
 			var thisY;
 
-			var t;
 			for (var i = 0; i < circleXLen; i++){
 				thisX = circleX[i];
 				thisY = circleY[i];
